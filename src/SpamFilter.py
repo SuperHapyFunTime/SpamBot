@@ -1,7 +1,7 @@
 import os
 from collections import Counter
 
-emailDataDir = '../data/test-mails/'
+emailDataDir = '../data/training-mails/'
 
 
 def getWordsAndFeq(emailDir):
@@ -17,5 +17,16 @@ def getWordsAndFeq(emailDir):
     return wordAndCount
 
 
-print(getWordsAndFeq(emailDataDir))
+def removeNonwords(wordLst):
+    list_to_remove = wordLst.copy().keys()
+    for item in list_to_remove:
+        if not item.isalpha():
+            del wordLst[item]
+        elif len(item) == 1:
+            del wordLst[item]
+    return wordLst
+
+
+WordsAndFeqLst = getWordsAndFeq(emailDataDir)
+print(removeNonwords(WordsAndFeqLst))
 
